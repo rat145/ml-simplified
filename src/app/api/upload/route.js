@@ -1,48 +1,26 @@
-import nextConnect from "next-connect";
-import multer from "multer";
+import { NextResponse } from "next/server";
 import path from "path";
+import { writeFile } from "fs/promises";
 
-// Configure multer storage
-const upload = multer({
-  storage: multer.diskStorage({
-    destination: "./public/uploads", // Ensure this directory exists
-    filename: (req, file, cb) => {
-      cb(null, `${Date.now()}-${file.originalname}`);
-    },
-  }),
-});
+export const POST = async (req, res) => {
+  const formData = await req.formData();
 
-// Create API route handler
-const apiRoute = nextConnect({
-  onError(error, req, res) {
-    res
-      .status(501)
-      .json({ error: `Sorry, something went wrong: ${error.message}` });
-  },
-  onNoMatch(req, res) {
-    res.status(405).json({ error: `Method ${req.method} not allowed` });
-  },
-});
-
-// Middleware to handle file upload
-apiRoute.use(upload.single("file")); // 'file' should match the name in FormData
-
-// POST request handler
-apiRoute.post((req, res) => {
-  // req.file contains the uploaded file information
-  if (!req.file) {
-    return res.status(400).json({ error: "No file uploaded" });
+  const file = formData.get("file");
+  if (!file) {
+    return NextResponse.json({ error: "No files received." }, { status: 400 });
   }
-  res
-    .status(200)
-    .json({ success: true, filePath: `/uploads/${req.file.filename}` });
-});
 
-export default apiRoute;
-
-// Disable body parsing for this API route
-export const config = {
-  api: {
-    bodyParser: false,
-  },
+  const buffer = Buffer.from(await file.arrayBuffer());
+  const filename = file.name.replaceAll(" ", "_");
+  console.log(filename);
+  try {
+    await writeFile(
+      path.join(process.cwd(), "public/assets/" + filename),
+      buffer
+    );
+    return NextResponse.json({ Message: "Success", status: 201 });
+  } catch (error) {
+    console.log("Error occured ", error);
+    return NextResponse.json({ Message: "Failed", status: 500 });
+  }
 };

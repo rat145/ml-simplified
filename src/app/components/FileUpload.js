@@ -2,46 +2,32 @@
 import { useState } from "react";
 
 const FileUpload = () => {
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!file) {
-      alert("Please select a file.");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    // POST the file to the API route
-    const response = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log("File uploaded successfully", data);
-      // Redirect or show a success message
-    } else {
-      console.error("File upload failed");
-    }
-  };
-
+  const [fileInput, setFileInput] = useState(null);
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-5">
+    <form
+      onSubmit={async (e) => {
+        e.preventDefault();
+        const file = fileInput[0];
+        const formData = new FormData();
+        formData.append("file", file);
+
+        fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => console.log(data))
+          .catch((error) => console.error(error));
+      }}
+      className="flex flex-col items-center gap-5"
+    >
       <div className="flex flex-col gap-3 items-center">
         <p className="text-[16px]">Upload Dataset (.csv files only)</p>
         <input
           type="file"
-          onChange={handleFileChange}
+          name="file"
           accept=".csv"
+          onChange={(e) => setFileInput(e.target.files[0])}
           className="border border-dashed p-4 cursor-pointer"
         />
       </div>
