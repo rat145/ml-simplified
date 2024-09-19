@@ -7,7 +7,7 @@ export default function Homepage() {
         <div className="flex flex-col gap-5">
           <h1 className="text-[58px] font-bold text-center">ML, Simplified!</h1>
           <h2 className="text-[22px] text-center">
-            Effortless Data Analysis &amp; Machine Learning - No Code Required
+            Effortless Data Analysis &amp; Machine Learning - <span className="text-[#f9ec30] font-semibold">No Code</span> Required
           </h2>
         </div>
         <div>
@@ -15,20 +15,19 @@ export default function Homepage() {
             width="80"
             height="95"
             viewBox="0 0 64 64"
-            className="star-svg"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             role="img"
-            class="iconify iconify--emojione-monotone"
+            className="iconify iconify--emojione-monotone star-svg"
             preserveAspectRatio="xMidYMid meet"
             fill="#fff"
             stroke="#fff"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               <path
