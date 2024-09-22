@@ -94,7 +94,7 @@ export default function DatasetPage() {
                 currentBtnId == "btn1" &&
                 data.length > 0 && (
                   <div className="overflow-x-auto border border-gray-300">
-                    <div className="overflow-y-auto max-h-96">
+                    <div className="overflow-y-auto max-h-[600px]">
                       <table
                         {...getTableProps()}
                         className="min-w-full bg-white border border-gray-300"
