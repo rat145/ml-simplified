@@ -13,7 +13,8 @@
     "next-connect": "^1.0.0",
     "papaparse": "^5.4.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-table": "^7.8.0"
   },
   "devDependencies": {
     "postcss": "^8",
