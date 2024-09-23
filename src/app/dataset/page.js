@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useMemo } from "react";
 import { useTable } from "react-table";
+import EDA from "../components/EDA";
 
 export default function DatasetPage() {
   const [currentBtnId, setCurrentBtnId] = useState("btn1");
@@ -141,7 +142,7 @@ export default function DatasetPage() {
                   </div>
                 )
               )}
-              {currentBtnId == "btn2" && <p>EDA</p>}
+              {currentBtnId == "btn2" && <EDA data={data} />}
               {currentBtnId == "btn3" && <p>Data Visualization</p>}
             </div>
           </div>
