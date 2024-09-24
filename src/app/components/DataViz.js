@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import Plot from "react-plotly.js";
-import Scatter from "./charts/Scatter";
-import Histogram from "./charts/Histogram";
+import dynamic from "next/dynamic";
+// Dynamically import Plotly-based component with SSR disabled
+const Scatter = dynamic(() => import("./charts/Scatter"), {
+  ssr: false, // Disable server-side rendering for this component
+});
+const Histogram = dynamic(() => import("./charts/Histogram"), {
+  ssr: false,
+});
 
 export default function DataViz({ data, columns }) {
   const [selectedValueQ1, setSelectedValueQ1] = useState("");
