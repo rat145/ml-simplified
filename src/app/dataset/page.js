@@ -144,7 +144,9 @@ export default function DatasetPage() {
                 )
               )}
               {currentBtnId == "btn2" && <EDA data={data} />}
-              {currentBtnId == "btn3" && <DataViz data={data} />}
+              {currentBtnId == "btn3" && (
+                <DataViz data={data} columns={columnNames} />
+              )}
             </div>
           </div>
         </div>
