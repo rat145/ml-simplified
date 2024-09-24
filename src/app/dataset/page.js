@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useTable } from "react-table";
 import EDA from "../components/EDA";
+import DataViz from "../components/DataViz";
 
 export default function DatasetPage() {
   const [currentBtnId, setCurrentBtnId] = useState("btn1");
@@ -143,7 +144,7 @@ export default function DatasetPage() {
                 )
               )}
               {currentBtnId == "btn2" && <EDA data={data} />}
-              {currentBtnId == "btn3" && <p>Data Visualization</p>}
+              {currentBtnId == "btn3" && <DataViz data={data} />}
             </div>
           </div>
         </div>
