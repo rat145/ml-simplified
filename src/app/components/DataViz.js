@@ -7,6 +7,9 @@ const Scatter = dynamic(() => import("./charts/Scatter"), {
 const Histogram = dynamic(() => import("./charts/Histogram"), {
   ssr: false,
 });
+const Heatmap = dynamic(() => import("./charts/Heatmap"), {
+  ssr: false,
+});
 
 export default function DataViz({ data, columns }) {
   const [selectedValueQ1, setSelectedValueQ1] = useState("");
@@ -15,9 +18,6 @@ export default function DataViz({ data, columns }) {
   const [scatterXData, setScatterXData] = useState([]);
   const [scatterYData, setScatterYData] = useState([]);
   const [histXData, setHistXData] = useState([]);
-  const [heatXData, setHeatXData] = useState([]);
-  const [heatYData, setHeatYData] = useState([]);
-  const [heatZData, setHeatZData] = useState([]);
 
   useEffect(() => {
     if (selectedValueQ1 === "scatter") {
@@ -122,6 +122,7 @@ export default function DataViz({ data, columns }) {
             </div>
           </div>
         )}
+        {/* Heatmap - no column section required, show correlation matrix */}
       </div>
       {/* Visualizations */}
       <div className="dataviz-right w-[70%]">
@@ -133,6 +134,9 @@ export default function DataViz({ data, columns }) {
         {selectedValueQ1 === "hist" &&
           selectedXCol !== "" &&
           selectedYCol === "" && <Histogram xcol={histXData} />}
+        {selectedValueQ1 === "heat" && (
+          <Heatmap data={data} columns={columns} />
+        )}
       </div>
     </div>
   );

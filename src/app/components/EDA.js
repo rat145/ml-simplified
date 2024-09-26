@@ -53,6 +53,7 @@ export default function EDA({ data }) {
     if (counts) setNullCounts(counts);
 
     setShape(df.shape.toString());
+    localStorage.setItem("shape", df.shape.toString());
 
     setAllColumns(df.columns.toString());
 
