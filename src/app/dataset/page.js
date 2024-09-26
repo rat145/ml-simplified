@@ -3,6 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useTable } from "react-table";
 import EDA from "../components/EDA";
 import DataViz from "../components/DataViz";
+import Prediction from "../components/Prediction";
 
 export default function DatasetPage() {
   const [currentBtnId, setCurrentBtnId] = useState("btn1");
@@ -74,7 +75,7 @@ export default function DatasetPage() {
               id="btn2"
               onClick={handleTabButtonClick}
             >
-              EDA
+              Tabular Analysis
             </button>
             <button
               className={`rounded-md bg-gradient-to-t from-black to-[#3533cd] text-white text-left px-7 py-4 ${
@@ -84,6 +85,15 @@ export default function DatasetPage() {
               onClick={handleTabButtonClick}
             >
               Data Visualization
+            </button>
+            <button
+              className={`rounded-md bg-gradient-to-t from-black to-[#3533cd] text-white text-left px-7 py-4 ${
+                currentBtnId == "btn4" && "activeBtn"
+              }`}
+              id="btn4"
+              onClick={handleTabButtonClick}
+            >
+              Prediction
             </button>
           </div>
           <div className="tab-container-right w-[80%] px-5">
@@ -146,6 +156,9 @@ export default function DatasetPage() {
               {currentBtnId == "btn2" && <EDA data={data} />}
               {currentBtnId == "btn3" && (
                 <DataViz data={data} columns={columnNames} />
+              )}
+              {currentBtnId == "btn4" && (
+                <Prediction data={data} columns={columnNames} />
               )}
             </div>
           </div>

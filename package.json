@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@tensorflow/tfjs": "^4.21.0",
+    "@tensorflow/tfjs-core": "^3.21.0",
+    "@tensorflow/tfjs-data": "^3.21.0",
+    "@tensorflow/tfjs-layers": "^3.21.0",
     "danfojs": "^1.1.2",
     "next": "14.2.11",
     "next-connect": "^1.0.0",

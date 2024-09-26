@@ -12,22 +12,25 @@ export default function DataViz({ data, columns }) {
   const [selectedValueQ1, setSelectedValueQ1] = useState("");
   const [selectedXCol, setSelectedXCol] = useState("");
   const [selectedYCol, setSelectedYCol] = useState("");
-  const [xData, setXData] = useState([]);
-  const [yData, setYData] = useState([]);
+  const [scatterXData, setScatterXData] = useState([]);
+  const [scatterYData, setScatterYData] = useState([]);
   const [histXData, setHistXData] = useState([]);
+  const [heatXData, setHeatXData] = useState([]);
+  const [heatYData, setHeatYData] = useState([]);
+  const [heatZData, setHeatZData] = useState([]);
 
   useEffect(() => {
-    if (selectedXCol !== "" && selectedYCol !== "") {
+    if (selectedValueQ1 === "scatter") {
       const temp_arrayX = [];
       const temp_arrayY = [];
       data.map((item, index) => {
         temp_arrayX.push(item[selectedXCol]);
         temp_arrayY.push(item[selectedYCol]);
       });
-      setXData(temp_arrayX);
-      setYData(temp_arrayY);
+      setScatterXData(temp_arrayX);
+      setScatterYData(temp_arrayY);
     }
-    if (selectedXCol !== "" && selectedYCol === "") {
+    if (selectedValueQ1 === "hist") {
       const temp_arrayXhist = [];
       data.map((item, index) => {
         temp_arrayXhist.push(item[selectedXCol]);
@@ -44,8 +47,11 @@ export default function DataViz({ data, columns }) {
           <select
             value={selectedValueQ1}
             onChange={(e) => setSelectedValueQ1(e.target.value)}
+            className="p-1 rounded-lg"
           >
-            <option value="">Select chart</option>
+            <option value="" className="text-gray-500">
+              Select chart
+            </option>
             <option value="scatter">Scatter plot</option>
             <option value="hist">Histogram</option>
             <option value="heat">Heatmap</option>
@@ -63,8 +69,11 @@ export default function DataViz({ data, columns }) {
               <select
                 value={selectedXCol}
                 onChange={(e) => setSelectedXCol(e.target.value)}
+                className="p-1 rounded-lg"
               >
-                <option value="">Select column</option>
+                <option value="" className="text-gray-500">
+                  Select column
+                </option>
                 {columns.map((col, index) => (
                   <option key={index} value={col}>
                     {col}
@@ -77,8 +86,11 @@ export default function DataViz({ data, columns }) {
               <select
                 value={selectedYCol}
                 onChange={(e) => setSelectedYCol(e.target.value)}
+                className="p-1 rounded-lg"
               >
-                <option value="">Select column</option>
+                <option value="" className="text-gray-500">
+                  Select column
+                </option>
                 {columns.map((col, index) => (
                   <option key={index} value={col}>
                     {col}
@@ -96,8 +108,11 @@ export default function DataViz({ data, columns }) {
               <select
                 value={selectedXCol}
                 onChange={(e) => setSelectedXCol(e.target.value)}
+                className="p-1 rounded-lg"
               >
-                <option value="">Select column</option>
+                <option value="" className="text-gray-500">
+                  Select column
+                </option>
                 {columns.map((col, index) => (
                   <option key={index} value={col}>
                     {col}
@@ -112,7 +127,9 @@ export default function DataViz({ data, columns }) {
       <div className="dataviz-right w-[70%]">
         {selectedValueQ1 === "scatter" &&
           selectedXCol !== "" &&
-          selectedYCol !== "" && <Scatter xcol={xData} ycol={yData} />}
+          selectedYCol !== "" && (
+            <Scatter xcol={scatterXData} ycol={scatterYData} />
+          )}
         {selectedValueQ1 === "hist" &&
           selectedXCol !== "" &&
           selectedYCol === "" && <Histogram xcol={histXData} />}
